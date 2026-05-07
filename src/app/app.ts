@@ -9,4 +9,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class App {
   protected readonly title = signal('prueba1');
+
+  mostrarAlerta() {
+    alert("boton pulsado")
+  }
+
 }
