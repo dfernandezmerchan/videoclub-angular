@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { LucideHouse, LucideHeart, LucideMenu, LucideSearch, LucidePlus } from '@lucide/angular';
+import { HeaderButtonLinks } from '../header-button-links/header-button-links';
+
+@Component({
+  selector: 'app-header',
+  imports: [RouterLink, RouterLinkActive, LucideHouse, LucideHeart, LucideMenu, LucideSearch, LucidePlus, HeaderButtonLinks],
+  templateUrl: './header.html'
+})
+export class HeaderComponent {}

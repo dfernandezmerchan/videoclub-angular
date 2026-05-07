@@ -1,0 +1,55 @@
+<header class="font-[Manrope] sticky top-0 z-50 border-b border-white/10 bg-[#07070A] backdrop-blur-[14px] [-webkit-backdrop-filter:blur(14px)] [backdrop-filter:blur(14px)]">
+    <div class="mx-auto flex justify-between max-w-360 items-center gap-6 px-8 py-3">
+        <div class="flex gap-8">
+            <button type="button" class="flex items-center gap-2.5 p-0">
+                <span class="display text-[20px] text-[#ececee] font-[Bebas_Neue] tracking-widest">VIDEOCLUB</span>
+            </button>
+
+            <nav class="flex items-center gap-2">
+                <app-header-button-links
+                    nombre="Inicio"
+                    routerLink="/"
+                    routerLinkActive
+                    [routerLinkActiveOptions]="{ exact: true }"
+                    #rlaInicio="routerLinkActive"
+                    [activo]="rlaInicio.isActive"
+                >
+                    <svg icon lucideHouse class="w-4"></svg>
+                </app-header-button-links>
+
+                <app-header-button-links
+                    nombre="Favoritos"
+                    routerLink="/favoritos"
+                    routerLinkActive
+                    #rlaFavoritos="routerLinkActive"
+                    [activo]="rlaFavoritos.isActive"
+                >
+                    <svg icon lucideHeart class="w-4"></svg>
+                    <span badge class="bg-[#ff2a4d] text-white rounded-full px-2 py-1 text-xs">2</span>
+                </app-header-button-links>
+
+                <app-header-button-links
+                    nombre="Administrar"
+                    routerLink="/administrar"
+                    routerLinkActive
+                    #rlaAdmin="routerLinkActive"
+                    [activo]="rlaAdmin.isActive"
+                >
+                    <svg icon lucideMenu class="w-4"></svg>
+                </app-header-button-links>
+            </nav>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <div class="relative ml-auto w-full max-w-[105]">
+                <svg lucideSearch class="absolute left-3 top-1/2 -translate-y-1/2 w-4 text-gray-300"></svg>
+                <input type="text" placeholder="Buscar películas, géneros, año..." class="w-100 rounded-md border border-white/10 bg-[#1a1a22] px-4 py-2.25 pl-9.5 text-[13px] text-gray-300 outline-none transition-colors focus:border-(--accent)" />
+            </div>
+
+            <button class="inline-flex items-center gap-2 rounded-md bg-[#ff2a4d] px-4 py-2 text-[13px] font-semibold text-white hover:brightness-110 cursor-pointer whitespace-nowrap">
+                <svg lucidePlus class="w-4"></svg>
+                <span>Añadir película</span>
+            </button>
+        </div>
+    </div>
+</header>
