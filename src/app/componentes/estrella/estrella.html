@@ -1,0 +1,12 @@
+<div class="inline-flex gap-0.5 items-center text-[#f7c948]">
+    @for (i of [1, 2, 3, 4, 5]; track i) {
+        <svg
+            icon
+            lucideStar
+            class="w-4 h-4"
+            [class.fill-current]="i <= (rating || 0)"
+            [class.text-[#f7c948]]="i <= (rating || 0)"
+            [class.text-gray-400]="i > (rating || 0)"
+        ></svg>
+    }
+</div>
