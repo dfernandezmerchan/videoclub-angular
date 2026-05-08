@@ -30,6 +30,14 @@ export class Inicio implements OnInit {
     generoActivo: string = 'Todos';
     filtroActual: string = '';
 
+    private readonly MAPA_GENEROS: Record<string, string> = {
+        'Acción': 'Action',
+        'Bélica': 'War',
+        'Ciencia ficción': 'Sci-Fi',
+        'Crimen': 'Crime',
+        'Drama': 'Drama'
+        };
+
     constructor(private peliculasService: Peliculas) {}
 
     ngOnInit(): void {
@@ -68,4 +76,36 @@ export class Inicio implements OnInit {
             }
         });
     }
+
+    getListaFiltrada(lista: Pelicula[]): Pelicula[] {
+        if (!lista) return [];
+
+        // filtrar por el genero seleccionado
+        let resultado = lista.filter(p => {
+            if (this.generoActivo === 'Todos') return true;
+            
+            // busca la traduccion en el map
+            const generoIngles = this.MAPA_GENEROS[this.generoActivo] || this.generoActivo;
+            return p.genre === generoIngles;
+        });
+
+        // aplicar el orden de las peliculas
+        switch (this.filtroActual) {
+            case 'recientes':
+            resultado.sort((a, b) => b.year - a.year);
+            break;
+            case 'antiguos':
+            resultado.sort((a, b) => a.year - b.year);
+            break;
+            case 'rating':
+            resultado.sort((a, b) => b.stars - a.stars);
+            break;
+            case 'alfabetico':
+            resultado.sort((a, b) => a.title.localeCompare(b.title));
+            break;
+        }
+
+        return resultado;
+        }
+    
 }
