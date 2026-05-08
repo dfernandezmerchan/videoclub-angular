@@ -6,7 +6,5 @@ export interface Pelicula {
     image_url: string;
     genre: string;
     stars: number;
-
-    // Propiedades customizadas de la interfaz
     favorita: boolean;
 }
