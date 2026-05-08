@@ -1,1 +1,12 @@
-<p>inicio works!</p>
+@if (peliculas$ | async; as peliculas) {
+
+    <section class="relative h-115 overflow-hidden border border-b">
+
+    </section>
+
+    <!-- @for (pelicula of peliculas.lista; track $index) {
+        <h2 class="text-white">{{ pelicula.title }}</h2>
+    } -->
+} @else {
+    <p class="text-gray-400">Cargando...</p>
+}
