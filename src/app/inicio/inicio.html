@@ -45,9 +45,10 @@
                 <h2 class="m-0 text-[32px] text-[#d4d5dc] tracking-[0.04em] font-title">
                     Catálogo
                 </h2>
+                <!--muestra dinamicamente el numero de peliculas que hay dependiendo de los filtros-->
                 <p class="mt-1 text-[#d4d5dc] text-[13px]">
-                    {{ peliculas.lista.length }}
-                    {{ peliculas.lista.length === 1 ? 'película' : 'películas' }}
+                    {{ getListaFiltrada(peliculas.lista).length }}
+                    {{ getListaFiltrada(peliculas.lista).length === 1 ? 'película' : 'películas' }}
                 </p>
             </div>
             <div class="flex gap-2 items-center">
@@ -85,7 +86,7 @@
         </div>
 
         <div class="grid gap-6 max-w-360 m-auto" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));">
-            @for (pelicula of peliculas.lista; track pelicula) {
+            @for (pelicula of getListaFiltrada(peliculas.lista); track pelicula.id) {
                 <div class="relative group cursor-pointer h-80">
                     <img
                         [src]="pelicula.image_url"
