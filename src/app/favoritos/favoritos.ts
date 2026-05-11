@@ -108,4 +108,9 @@ export class Favoritos implements OnInit {
 
     this.ordenarFavoritos();
   }
+  
+  quitarFavorito(id: number): void {
+
+  this.peliculasService.toggleFavorito(id);
+}
 }

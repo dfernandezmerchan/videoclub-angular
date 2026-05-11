@@ -1,57 +1,136 @@
-<h1>Mis favoritos</h1>
+<section class="px-16 py-10 font-[Manrope]">
 
-<select (change)="cambiarOrden($event)">
+    <div class="max-w-360 m-auto">
 
-    <option value="alfabeto">
-        Orden alfabético
-    </option>
+        <div class="flex items-end justify-between gap-4 flex-wrap mb-8">
 
-    <option value="yearAsc">
-        Año ascendente
-    </option>
+            <div>
+                <h1 class="m-0 text-[42px] text-[#d4d5dc] font-title tracking-[0.03em]">
+                    Mis favoritos
+                </h1>
 
-    <option value="yearDesc">
-        Año descendente
-    </option>
+                <p class="mt-2 text-[#9ca3af] text-sm">
+                    {{ favoritos.length }}
+                    {{ favoritos.length === 1 ? 'película guardada' : 'películas guardadas' }}
+                </p>
+            </div>
 
-    <option value="starsAsc">
-        Menos estrellas
-    </option>
+            <div class="relative">
 
-    <option value="starsDesc">
-        Más estrellas
-    </option>
+                <select
+                    class="pl-10 pr-8 py-2 bg-[#14161d] border border-[#2a2d37] rounded-lg text-[#d4d5dc] appearance-none cursor-pointer outline-none transition hover:border-[#3b3f4d]"
+                    (change)="cambiarOrden($event)"
+                >
 
-</select>
+                    <option value="alfabeto">
+                        Orden alfabético
+                    </option>
 
-<div class="contenedor-favoritos">
+                    <option value="yearAsc">
+                        Año ascendente
+                    </option>
 
-    @for (pelicula of favoritos; track pelicula.id) {
+                    <option value="yearDesc">
+                        Año descendente
+                    </option>
 
-        <div class="card">
+                    <option value="starsAsc">
+                        Menos estrellas
+                    </option>
 
-            <img
-                [src]="pelicula.image_url"
-                [alt]="pelicula.title"
-            >
+                    <option value="starsDesc">
+                        Más estrellas
+                    </option>
 
-            <h2>{{ pelicula.title }}</h2>
+                </select>
 
-            <p>{{ pelicula.year }}</p>
+                <svg
+                    icon
+                    lucideList
+                    class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-[#9ca3af] pointer-events-none"
+                ></svg>
 
-            <p>{{ pelicula.genre }}</p>
-
-            <app-estrella
-                [rating]="pelicula.stars">
-            </app-estrella>
+            </div>
 
         </div>
-    }
 
-</div>
+        <div
+            class="grid gap-6"
+            style="grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));"
+        >
 
-@if (favoritos.length === 0) {
+            @for (pelicula of favoritos; track pelicula.id) {
 
-    <p>No tienes favoritos</p>
+                <div class="relative group cursor-pointer overflow-hidden rounded-xl bg-[#14161d] border border-[#1f222d]">
 
-}
+                    <img
+                        [src]="pelicula.image_url"
+                        [alt]="pelicula.title"
+                        class="w-full h-80 object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+
+                    <div
+                        class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4"
+                    >
+
+                        <h2 class="text-white text-lg font-semibold leading-tight mb-2">
+                            {{ pelicula.title }}
+                        </h2>
+
+                        <div class="flex items-center gap-2 text-sm text-gray-300 mb-3">
+
+                            <span>{{ pelicula.genre }}</span>
+
+                            <span class="text-gray-500">•</span>
+
+                            <span>{{ pelicula.year }}</span>
+
+                        </div>
+
+                        <div class="mb-3">
+                            <app-estrella
+                                [rating]="pelicula.stars">
+                            </app-estrella>
+                        </div>
+
+                        <button
+                            class="cursor-pointer text-sm py-2 px-3 w-fit rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors duration-200"
+                            (click)="quitarFavorito(pelicula.id)"
+                        >
+                            Quitar de favoritos
+
+                        </button>
+
+                    </div>
+
+                </div>
+            }
+
+        </div>
+
+
+        @if (favoritos.length === 0) {
+
+            <div
+                class="flex flex-col items-center justify-center py-24 text-center"
+            >
+
+                <div class="text-6xl mb-4">
+                    💔
+                </div>
+
+                <h2 class="text-2xl text-[#d4d5dc] mb-2 font-title">
+                    No tienes favoritos
+                </h2>
+
+                <p class="text-gray-400 max-w-md">
+                    Agrega películas a favoritos para verlas aquí.
+                </p>
+
+            </div>
+
+        }
+
+    </div>
+
+</section>
