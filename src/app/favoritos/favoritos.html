@@ -1,1 +1,57 @@
-<p>favoritos works!</p>
+<h1>Mis favoritos</h1>
+
+<select (change)="cambiarOrden($event)">
+
+    <option value="alfabeto">
+        Orden alfabético
+    </option>
+
+    <option value="yearAsc">
+        Año ascendente
+    </option>
+
+    <option value="yearDesc">
+        Año descendente
+    </option>
+
+    <option value="starsAsc">
+        Menos estrellas
+    </option>
+
+    <option value="starsDesc">
+        Más estrellas
+    </option>
+
+</select>
+
+<div class="contenedor-favoritos">
+
+    @for (pelicula of favoritos; track pelicula.id) {
+
+        <div class="card">
+
+            <img
+                [src]="pelicula.image_url"
+                [alt]="pelicula.title"
+            >
+
+            <h2>{{ pelicula.title }}</h2>
+
+            <p>{{ pelicula.year }}</p>
+
+            <p>{{ pelicula.genre }}</p>
+
+            <app-estrella
+                [rating]="pelicula.stars">
+            </app-estrella>
+
+        </div>
+    }
+
+</div>
+
+@if (favoritos.length === 0) {
+
+    <p>No tienes favoritos</p>
+
+}
