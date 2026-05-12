@@ -24,7 +24,15 @@ export const routes: Routes = [
         }
     },
     {
+
         path: 'pelicula/:id',
         component: DetallesPelicula
+    },
+    {
+        path: 'anadir',
+        pathMatch: 'full',
+        loadComponent: () => {
+            return import('./anadir/anadir').then((m) => m.Anadir);
+        }
     }
 ];

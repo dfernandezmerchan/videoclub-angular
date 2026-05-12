@@ -1,1 +1,205 @@
-<p>administrar works!</p>
+@if (peliculas; as lista) {
+
+<section class="px-16 py-10 font-[Manrope] max-w-360 m-auto">
+
+    <!-- TITULO -->
+    <h2 class="text-[32px] text-[#d4d5dc] font-title mb-6">
+        Administrar películas
+    </h2>
+
+    <!-- LISTADO -->
+    <div class="grid gap-6" style="grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));">
+
+        @for (peli of peliculas; track peli.id) {
+
+            @if (!peliculaEditando || peliculaEditando.id !== peli.id) {
+
+                <div class="bg-[#14161d] border border-[#1f222d] rounded-2xl overflow-hidden flex flex-col">
+
+                    <!-- IMAGEN -->
+                    <img
+                        [src]="peli.image_url"
+                        class="h-44 w-full object-cover"
+                        alt="{{ peli.title }}"
+                    />
+
+                    <!-- CONTENIDO -->
+                    <div class="p-4 flex flex-col gap-2 flex-1">
+
+                        <h3 class="text-[#d4d5dc] text-lg font-semibold">
+                            {{ peli.title }}
+                        </h3>
+
+                        <p class="text-[#9aa0aa] text-xs line-clamp-3">
+                            {{ peli.description }}
+                        </p>
+
+                        <div class="text-[#9aa0aa] text-sm mt-1">
+                            {{ peli.genre }} • {{ peli.year }}
+                        </div>
+
+                        <!-- ESTRELLAS + BOTONES -->
+                        <div class="flex items-center gap-2 mt-auto">
+
+                            <app-estrella [rating]="peli.stars"></app-estrella>
+
+                            <button
+                                class="ml-auto bg-[#ff2a4d] hover:brightness-110 transition text-white text-sm px-3 py-2 rounded-lg cursor-pointer"
+                                (click)="editar(peli)"
+                            >
+                                Editar
+                            </button>
+
+                            <button
+                                class="bg-[#2a2d37] hover:bg-[#3a3d48] transition text-white text-sm px-3 py-2 rounded-lg cursor-pointer"
+                                (click)="eliminar(peli.id)"
+                            >
+                                Eliminar
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            }
+
+        }
+
+    </div>
+
+    <!-- EDITAR -->
+    @if (peliculaEditando) {
+
+    <div class="mt-12 max-w-3xl mx-auto">
+
+        <!-- CABECERA -->
+        <div class="mb-8">
+
+            <h1 class="text-[32px] text-[#d4d5dc] font-title">
+                Editar película
+            </h1>
+
+            <p class="text-gray-400 mt-2">
+                Modifica los datos de la película seleccionada.
+            </p>
+
+        </div>
+
+        <!-- FORMULARIO -->
+        <form
+            (ngSubmit)="guardarEdicion()"
+            class="bg-[#14161d] border border-[#1f222d] rounded-2xl p-8 flex flex-col gap-6"
+        >
+
+            <!-- TITULO -->
+            <div class="flex flex-col gap-2">
+                <label class="text-sm text-[#d4d5dc]">Título</label>
+                <input
+                    [(ngModel)]="peliculaEditando.title"
+                    name="title"
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+                />
+            </div>
+
+            <!-- DESCRIPCIÓN -->
+            <div class="flex flex-col gap-2">
+                <label class="text-sm text-[#d4d5dc]">Descripción</label>
+                <textarea
+                    rows="5"
+                    [(ngModel)]="peliculaEditando.description"
+                    name="description"
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d] resize-none"
+                ></textarea>
+            </div>
+
+            <!-- GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- AÑO -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm text-[#d4d5dc]">Año</label>
+                    <input
+                        type="number"
+                        [(ngModel)]="peliculaEditando.year"
+                        name="year"
+                        class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+                    />
+                </div>
+
+                <!-- GÉNERO -->
+                <div class="flex flex-col gap-2">
+                    <label class="text-sm text-[#d4d5dc]">Género</label>
+                    <select
+                        [(ngModel)]="peliculaEditando.genre"
+                        name="genre"
+                        class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+                    >
+                        <option value="Action">Acción</option>
+                        <option value="War">Bélica</option>
+                        <option value="Sci-Fi">Ciencia ficción</option>
+                        <option value="Crime">Crimen</option>
+                        <option value="Drama">Drama</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <!-- IMAGEN -->
+            <div class="flex flex-col gap-2">
+                <label class="text-sm text-[#d4d5dc]">URL de imagen</label>
+                <input
+                    [(ngModel)]="peliculaEditando.image_url"
+                    name="image_url"
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+                />
+            </div>
+
+            <!-- ESTRELLAS -->
+            <div class="flex flex-col gap-2">
+                <label class="text-sm text-[#d4d5dc]">Puntuación</label>
+                <select
+                    [(ngModel)]="peliculaEditando.stars"
+                    name="stars"
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+                >
+                    <option [value]="1">1 estrella</option>
+                    <option [value]="2">2 estrellas</option>
+                    <option [value]="3">3 estrellas</option>
+                    <option [value]="4">4 estrellas</option>
+                    <option [value]="5">5 estrellas</option>
+                </select>
+            </div>
+
+            <!-- BOTONES -->
+            <div class="flex gap-3">
+
+                <button
+                    type="submit"
+                    class="bg-[#ff2a4d] hover:brightness-110 transition rounded-lg px-6 py-3 text-white font-semibold cursor-pointer"
+                >
+                    Guardar cambios
+                </button>
+
+                <button
+                    type="button"
+                    (click)="cancelarEdicion()"
+                    class="bg-[#2a2d37] hover:bg-[#3a3d48] transition rounded-lg px-6 py-3 text-white cursor-pointer"
+                >
+                    Cancelar
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    }
+
+</section>
+
+} @else {
+    <p class="text-gray-400">Cargando...</p>
+}
