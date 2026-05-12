@@ -22,4 +22,11 @@ export const routes: Routes = [
             return import('./administrar/administrar').then((m) => m.Administrar);
         }
     },
+    {
+        path: 'anadir',
+        pathMatch: 'full',
+        loadComponent: () => {
+            return import('./anadir/anadir').then((m) => m.Anadir);
+        }
+    }
 ];

@@ -1,0 +1,184 @@
+<section class="px-16 py-10 font-[Manrope]">
+
+    <div class="max-w-3xl mx-auto">
+
+        <!-- CABECERA -->
+
+        <div class="mb-10">
+
+            <h1 class="text-[42px] text-[#d4d5dc] font-title tracking-[0.03em]">
+                Añadir película
+            </h1>
+
+            <p class="text-gray-400 mt-2">
+                Crea una nueva película personalizada para el videoclub.
+            </p>
+
+        </div>
+
+        <!-- FORMULARIO -->
+
+        <form
+            class="bg-[#14161d] border border-[#1f222d] rounded-2xl p-8 flex flex-col gap-6"
+            (ngSubmit)="guardarPelicula()"
+        >
+
+            <!-- TITULO -->
+
+            <div class="flex flex-col gap-2">
+
+                <label class="text-sm text-[#d4d5dc]">
+                    Título
+                </label>
+
+                <input
+                    type="text"
+
+                    [(ngModel)]="nuevaPelicula.title"
+
+                    name="title"
+
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+
+                    placeholder="Interstellar"
+                >
+
+            </div>
+
+            <!-- DESCRIPCIÓN -->
+
+            <div class="flex flex-col gap-2">
+
+                <label class="text-sm text-[#d4d5dc]">
+                    Descripción
+                </label>
+
+                <textarea
+
+                    [(ngModel)]="nuevaPelicula.description"
+
+                    name="description"
+
+                    rows="5"
+
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d] resize-none"
+
+                    placeholder="Describe la película..."
+                ></textarea>
+
+            </div>
+
+            <!-- GRID -->
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                <!-- AÑO -->
+
+                <div class="flex flex-col gap-2">
+
+                    <label class="text-sm text-[#d4d5dc]">
+                        Año
+                    </label>
+
+                    <input
+                        type="number"
+
+                        [(ngModel)]="nuevaPelicula.year"
+
+                        name="year"
+
+                        class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+                    >
+
+                </div>
+
+                <!-- GÉNERO -->
+
+                <div class="flex flex-col gap-2">
+
+                    <label class="text-sm text-[#d4d5dc]">
+                        Género
+                    </label>
+
+                    <input
+                        type="text"
+
+                        [(ngModel)]="nuevaPelicula.genre"
+
+                        name="genre"
+
+                        class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+
+                        placeholder="Sci-Fi"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- IMAGEN -->
+
+            <div class="flex flex-col gap-2">
+
+                <label class="text-sm text-[#d4d5dc]">
+                    URL de imagen
+                </label>
+
+                <input
+                    type="text"
+
+                    [(ngModel)]="nuevaPelicula.image_url"
+
+                    name="image_url"
+
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+
+                    placeholder="https://..."
+                >
+
+            </div>
+
+            <!-- ESTRELLAS -->
+
+            <div class="flex flex-col gap-2">
+
+                <label class="text-sm text-[#d4d5dc]">
+                    Puntuación
+                </label>
+
+                <select
+
+                    [(ngModel)]="nuevaPelicula.stars"
+
+                    name="stars"
+
+                    class="bg-[#0f1117] border border-[#2a2d37] rounded-lg px-4 py-3 text-white outline-none focus:border-[#ff2a4d]"
+                >
+
+                    <option [value]="1">1 estrella</option>
+                    <option [value]="2">2 estrellas</option>
+                    <option [value]="3">3 estrellas</option>
+                    <option [value]="4">4 estrellas</option>
+                    <option [value]="5">5 estrellas</option>
+
+                </select>
+
+            </div>
+
+            <!-- BOTÓN -->
+
+            <button
+                type="submit"
+
+                class="bg-[#ff2a4d] hover:brightness-110 transition rounded-lg px-6 py-3 text-white font-semibold cursor-pointer w-fit"
+            >
+
+                Guardar película
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
