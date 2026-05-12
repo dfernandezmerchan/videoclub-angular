@@ -72,34 +72,35 @@
                     <div
                         class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4"
                     >
-
                         <h2 class="text-white text-lg font-semibold leading-tight mb-2">
                             {{ pelicula.title }}
                         </h2>
 
                         <div class="flex items-center gap-2 text-sm text-gray-300 mb-3">
-
                             <span>{{ pelicula.genre }}</span>
-
                             <span class="text-gray-500">•</span>
-
                             <span>{{ pelicula.year }}</span>
-
                         </div>
 
-                        <div class="mb-3">
-                            <app-estrella
-                                [rating]="pelicula.stars">
-                            </app-estrella>
+                        <div class="mb-4">
+                            <app-estrella [rating]="pelicula.stars"></app-estrella>
                         </div>
 
-                        <button
-                            class="cursor-pointer text-sm py-2 px-3 w-fit rounded-lg bg-red-500 hover:bg-red-600 text-white transition-colors duration-200"
-                            (click)="quitarFavorito(pelicula.id)"
-                        >
-                            Quitar de favoritos
+                        <div class="flex gap-2">
+                            <button
+                                [routerLink]="['/pelicula', pelicula.id]"
+                                class="cursor-pointer text-xs py-2 px-3 rounded-lg bg-[#ff2a4d] hover:bg-[#e62645] text-white transition-colors duration-200 flex-1 font-semibold"
+                            >
+                                Ver detalles
+                            </button>
 
-                        </button>
+                            <button
+                                (click)="quitarFavorito(pelicula.id)"
+                                class="cursor-pointer text-xs py-2 px-3 rounded-lg bg-[#2a2d37] hover:bg-[#3a3d48] text-white transition-colors duration-200"
+                            >
+                                Quitar
+                            </button>
+                        </div>
 
                     </div>
 

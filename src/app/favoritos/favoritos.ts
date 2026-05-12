@@ -1,17 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { Pelicula } from '../interfaces/pelicula';
 import { Peliculas } from '../servicios/peliculas';
 
 import { Estrella } from '../componentes/estrella/estrella';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-favoritos',
 
   imports: [
     CommonModule,
-    Estrella
+    Estrella,
+    RouterLink
   ],
 
   templateUrl: './favoritos.html',
