@@ -52,16 +52,21 @@
                 </p>
             </div>
             <div class="flex gap-2 items-center">
-                <div class="flex gap-1.5 flex-wrap">
-                    @for (genre of generos; track genre) {
-                        <button
-                            class="chip chip-secondary cursor-pointer"
-                            [class.chip-accent]="genre === generoActivo"
-                            (click)="cambiarGenero(genre)"
-                        >
-                            {{ genre }}
-                        </button>
-                    }
+                <div class="relative min-w-[160px]">
+                    <select 
+                        (change)="cambiarGeneroSelect($event)"
+                        class="w-full appearance-none rounded-md border border-white/10 bg-[#1a1a22] px-4 py-2.25 text-[13px] text-gray-300 outline-none transition-colors focus:border-[#ff2a4d] cursor-pointer"
+                    >
+                        @for (genre of generos; track genre) {
+                            <option [value]="genre" [selected]="genre === generoActivo">
+                                {{ genre }}
+                            </option>
+                        }
+                    </select>
+                    
+                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+                        <svg lucideChevronDown class="w-4 h-4"></svg>
+                    </div>
                 </div>
 
                 <div class="relative">

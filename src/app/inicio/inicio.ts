@@ -23,20 +23,25 @@ export class Inicio implements OnInit {
     generos: string[] = [
         'Todos',
         'Acción',
-        'Bélica',
+        'Aventura',
+        'Biografía',
         'Ciencia ficción',
         'Crimen',
-        'Drama'
+        'Drama',
+        'Fantasía'
     ];
     generoActivo: string = 'Todos';
     filtroActual: string = '';
 
-    private readonly MAPA_GENEROS: Record<string, string> = {
+    public readonly MAPA_GENEROS: Record<string, string> = {
         'Acción': 'Action',
-        'Bélica': 'War',
+        'Aventura': 'Adventure',
+        'Biografía': 'Biography',
         'Ciencia ficción': 'Sci-Fi',
         'Crimen': 'Crime',
-        'Drama': 'Drama'
+        'Drama': 'Drama',
+        'Fantasía': 'Fantasy',
+        'Bélica': 'War'
         };
 
     constructor(private peliculasService: Peliculas) {}
@@ -58,8 +63,9 @@ export class Inicio implements OnInit {
         );
     }
 
-    cambiarGenero(genero: string) {
-        this.generoActivo = genero;
+    cambiarGeneroSelect(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    this.generoActivo = select.value;
     }
 
     cambiarFiltro(event: Event) {
@@ -81,32 +87,27 @@ export class Inicio implements OnInit {
     getListaFiltrada(lista: Pelicula[]): Pelicula[] {
         if (!lista) return [];
 
-        // filtrar por el genero seleccionado
-        let resultado = lista.filter(p => {
-            if (this.generoActivo === 'Todos') return true;
-            
-            // busca la traduccion en el map
-            const generoIngles = this.MAPA_GENEROS[this.generoActivo] || this.generoActivo;
-            return p.genre === generoIngles;
-        });
+        let resultado = [...lista];
 
-        // aplicar el orden de las peliculas
+        // Filtrar por género
+        if (this.generoActivo !== 'Todos') {
+            // Obtenemos la traducción (ej: 'Acción' -> 'Action')
+            const generoBuscado = this.MAPA_GENEROS[this.generoActivo] || this.generoActivo;
+            
+            resultado = resultado.filter(p => 
+                p.genre.toLowerCase() === generoBuscado.toLowerCase()
+            );
+        }
+
+        // Aplicar orden (Año, Rating, etc.)
         switch (this.filtroActual) {
-            case 'recientes':
-            resultado.sort((a, b) => b.year - a.year);
-            break;
-            case 'antiguos':
-            resultado.sort((a, b) => a.year - b.year);
-            break;
-            case 'rating':
-            resultado.sort((a, b) => b.stars - a.stars);
-            break;
-            case 'alfabetico':
-            resultado.sort((a, b) => a.title.localeCompare(b.title));
-            break;
+            case 'recientes': resultado.sort((a, b) => b.year - a.year); break;
+            case 'antiguos': resultado.sort((a, b) => a.year - b.year); break;
+            case 'rating': resultado.sort((a, b) => b.stars - a.stars); break;
+            case 'alfabetico': resultado.sort((a, b) => a.title.localeCompare(b.title)); break;
         }
 
         return resultado;
-        }
+    }   
     
 }
