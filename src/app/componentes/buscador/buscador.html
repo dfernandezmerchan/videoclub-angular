@@ -1,0 +1,17 @@
+<form
+    (ngSubmit)="buscar()"
+    class="relative ml-auto w-full max-w-[105]"
+>
+    <svg
+        lucideSearch
+        class="absolute left-3 top-1/2 -translate-y-1/2 w-4 text-gray-300"
+    ></svg>
+
+    <input
+        type="text"
+        name="busqueda"
+        [(ngModel)]="textoBusqueda"
+        placeholder="Buscar películas, géneros, año..."
+        class="w-100 rounded-md border border-white/10 bg-[#1a1a22] px-4 py-2.25 pl-9.5 text-[13px] text-gray-300 outline-none transition-colors focus:border-(--accent)"
+    />
+</form>
