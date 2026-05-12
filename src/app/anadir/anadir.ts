@@ -2,88 +2,60 @@ import { Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RouterModule, Router } from '@angular/router';
+import { inject } from '@angular/core';
 import { Pelicula } from '../interfaces/pelicula';
 
 @Component({
-  selector: 'app-anadir',
-
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
-
-  templateUrl: './anadir.html',
-
-  styleUrl: './anadir.css',
+    selector: 'app-anadir',
+    imports: [CommonModule, FormsModule, RouterModule],
+    templateUrl: './anadir.html',
+    styleUrl: './anadir.css',
 })
-
 export class Anadir {
-  nuevaPelicula: Pelicula = {
+    private router = inject(Router);
 
-    id: 0,
-
-    title: '',
-
-    description: '',
-
-    year: 2025,
-
-    image_url: '',
-
-    genre: '',
-
-    stars: 1,
-
-    favorita: false
-  };
-  
-  mostrarAlerta: boolean = false;
-  mensajeAlerta: string = '';
-  
-  guardarPelicula(): void {
-
-    const peliculasGuardadas = JSON.parse(
-      localStorage.getItem('peliculasUsuario') || '[]'
-    );
-
-    // GENERAR ID ÚNICO
-
-    const nueva = {
-
-      ...this.nuevaPelicula,
-
-      id: Date.now()
+    nuevaPelicula: Pelicula = {
+        id: 0,
+        title: '',
+        description: '',
+        year: 2025,
+        image_url: '',
+        genre: '',
+        stars: 1,
+        favorita: false,
     };
 
-    peliculasGuardadas.push(nueva);
+    mostrarAlerta: boolean = false;
+    mensajeAlerta: string = '';
 
-    localStorage.setItem(
-      'peliculasUsuario',
-      JSON.stringify(peliculasGuardadas)
-    );
+    guardarPelicula(): void {
+        const peliculasGuardadas = JSON.parse(localStorage.getItem('peliculasUsuario') || '[]');
 
-    this.nuevaPelicula = {
+        const nueva = {
+            ...this.nuevaPelicula,
 
-      id: 0,
+            id: Date.now(),
+        };
 
-      title: '',
+        peliculasGuardadas.push(nueva);
 
-      description: '',
+        localStorage.setItem('peliculasUsuario', JSON.stringify(peliculasGuardadas));
 
-      year: new Date().getFullYear(),
+        this.nuevaPelicula = {
+            id: 0,
+            title: '',
+            description: '',
+            year: new Date().getFullYear(),
+            image_url: '',
+            genre: '',
+            stars: 1,
+            favorita: false,
+        };
 
-      image_url: '',
+        this.mensajeAlerta = 'Película guardada correctamente';
+        this.mostrarAlerta = true;
 
-      genre: '',
-
-      stars: 1,
-
-      favorita: false
-    };
-
-
-    this.mensajeAlerta = 'Película guardada correctamente';
-    this.mostrarAlerta = true;
-  }
+        this.router.navigate(['/']);
+    }
 }

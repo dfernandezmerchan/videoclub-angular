@@ -14,7 +14,7 @@
 
             @if (!peliculaEditando || peliculaEditando.id !== peli.id) {
 
-                <div class="bg-[#14161d] border border-[#1f222d] rounded-2xl overflow-hidden flex flex-col">
+                <div class="bg-[#14161d] border border-[#1f222d] rounded-2xl overflow-hidden flex flex-col w-fit">
 
                     <!-- IMAGEN -->
                     <img
@@ -24,7 +24,7 @@
                     />
 
                     <!-- CONTENIDO -->
-                    <div class="p-4 flex flex-col gap-2 flex-1">
+                    <div class="flex flex-col gap-2 p-4">
 
                         <h3 class="text-[#d4d5dc] text-lg font-semibold">
                             {{ peli.title }}
@@ -39,23 +39,25 @@
                         </div>
 
                         <!-- ESTRELLAS + BOTONES -->
-                        <div class="flex items-center gap-2 mt-auto">
+                        <div class="flex items-center gap-4 mt-auto">
 
                             <app-estrella [rating]="peli.stars"></app-estrella>
 
-                            <button
-                                class="ml-auto bg-[#ff2a4d] hover:brightness-110 transition text-white text-sm px-3 py-2 rounded-lg cursor-pointer"
-                                (click)="editar(peli)"
-                            >
-                                Editar
-                            </button>
+                            <div class="flex gap-2">
+                                <button
+                                    class="ml-auto bg-[#ff2a4d] hover:brightness-110 transition text-white text-sm px-3 py-2 rounded-lg cursor-pointer"
+                                    (click)="editar(peli)"
+                                >
+                                    Editar
+                                </button>
 
-                            <button
-                                class="bg-[#2a2d37] hover:bg-[#3a3d48] transition text-white text-sm px-3 py-2 rounded-lg cursor-pointer"
-                                (click)="eliminar(peli.id)"
-                            >
-                                Eliminar
-                            </button>
+                                <button
+                                    class="bg-[#2a2d37] hover:bg-[#3a3d48] transition text-white text-sm px-3 py-2 rounded-lg cursor-pointer"
+                                    (click)="eliminar(peli.id)"
+                                >
+                                    Eliminar
+                                </button>
+                            </div>
 
                         </div>
 
