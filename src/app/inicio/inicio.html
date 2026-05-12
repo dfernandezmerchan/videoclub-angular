@@ -1,16 +1,20 @@
 @if (peliculas$ | async; as peliculas) {
-    <section class="relative h-115 overflow-hidden border-b border-[#1f222d] font-[Manrope] p-16">
-        <div class="relative max-w-360 m-auto flex flex-col justify-end h-full gap-4">
+    <section class="relative h-115 overflow-hidden border-b border-[#1f222d] font-[Manrope] p-16 bg-[#0c0c0c]">
+    
+        <div class="absolute top-0 right-0 w-full h-full md:w-2/3 z-0">
+            <img [src]="peliculas.destacada?.image_url" 
+                class="w-full h-full object-cover object-top opacity-50" 
+                alt="">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0c0c0c] via-[#0c0c0c]/60 to-transparent"></div>
+        </div>
+
+        <div class="relative z-10 max-w-360 m-auto flex flex-col justify-end h-full gap-4">
             <div class="flex items-center gap-2.5">
                 <span class="chip chip-accent">Destacada</span>
                 <span class="chip">{{ peliculas.destacada?.genre }}</span>
-                <span class="text-[#d4d5dc] text-[12px] font-medium">{{
-                    peliculas.destacada?.year
-                }}</span>
+                <span class="text-[#d4d5dc] text-[12px] font-medium">{{ peliculas.destacada?.year }}</span>
             </div>
-            <h1
-                class="m-0 text-[72px] leading-[0.95] text-[#d4d5dc] max-w-180 title-shadow font-title"
-            >
+            <h1 class="m-0 text-[72px] leading-[0.95] text-[#d4d5dc] max-w-180 title-shadow font-title uppercase">
                 {{ peliculas.destacada?.title }}
             </h1>
             <p class="m-0 max-w-140 text-[14px] leading-[1.6] text-[#d4d5dc] description-webkit">
@@ -18,24 +22,10 @@
             </p>
 
             <div class="flex items-center gap-3 mt-1">
-                <a [routerLink]="['/pelicula', peliculas.destacada?.id]" class="boton btn-primary cursor-pointer">
-                    <svg icon lucidePlay class="w-4 h-4" fill="white"></svg> Ver detalle
+                <a [routerLink]="['/pelicula', peliculas.destacada?.id]" class="boton btn-primary">
+                    <svg icon lucidePlay class="w-4 h-4"></svg> Ver detalle
                 </a>
-                <button class="boton btn-fantasma cursor-pointer" (click)="agregarFavoritoDestacada()">
-                    <svg
-                        icon
-                        lucideHeart
-                        class="w-4 h-4"
-                        [class.fill-current]="peliculas.destacada?.favorita"
-                        [class.text-[#d4d5dc]]="peliculas.destacada?.favorita"
-                    ></svg>
-                    {{ peliculas.destacada?.favorita ? 'En favoritos' : 'Agregar a favoritas' }}
-                </button>
-
-                <div class="ml-2">
-                    <app-estrella [rating]="peliculas.destacada?.stars"></app-estrella>
                 </div>
-            </div>
         </div>
     </section>
 
