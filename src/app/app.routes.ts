@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { DetallesPelicula } from './detalles-pelicula/detalles-pelicula';
 
 export const routes: Routes = [
     {
@@ -22,4 +23,8 @@ export const routes: Routes = [
             return import('./administrar/administrar').then((m) => m.Administrar);
         }
     },
+    {
+        path: 'pelicula/:id',
+        component: DetallesPelicula
+    }
 ];

@@ -18,9 +18,9 @@
             </p>
 
             <div class="flex items-center gap-3 mt-1">
-                <button class="boton btn-primary cursor-pointer">
+                <a [routerLink]="['/pelicula', peliculas.destacada?.id]" class="boton btn-primary cursor-pointer">
                     <svg icon lucidePlay class="w-4 h-4" fill="white"></svg> Ver detalle
-                </button>
+                </a>
                 <button class="boton btn-fantasma cursor-pointer" (click)="agregarFavoritoDestacada()">
                     <svg
                         icon
@@ -103,9 +103,9 @@
                             {{ pelicula.genre }} - {{ pelicula.year }}
                         </p>
                         <div class="flex items-center gap-2 flex-wrap">
-                            <button class="boton btn-primary cursor-pointer text-xs py-2 px-3">
+                            <a [routerLink]="['/pelicula', pelicula.id]" class="boton btn-primary cursor-pointer text-xs py-2 px-3">
                                 <svg icon lucidePlay class="w-3.5 h-3.5" fill="white"></svg> Ver detalle
-                            </button>
+                            </a>
                             <button class="boton btn-fantasma cursor-pointer text-xs py-2 px-3" (click)="agregarFavorito(pelicula)">
                                 <svg
                                     icon

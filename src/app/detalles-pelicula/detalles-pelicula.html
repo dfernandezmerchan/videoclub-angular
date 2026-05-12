@@ -1,0 +1,96 @@
+<div class="min-h-screen bg-[#14161d] font-[Manrope]">
+
+    @if (cargando) {
+        <div class="animate-pulse">
+            <div class="h-[70vh] bg-[#1c1f29]"></div>
+            <div class="px-16 pt-10 max-w-360 mx-auto space-y-4">
+                <div class="flex gap-2 items-center">
+                    <div class="h-6 w-20 rounded-full bg-[#1c1f29]"></div>
+                    <div class="h-4 w-10 rounded bg-[#1c1f29]"></div>
+                </div>
+                <div class="h-20 w-1/2 rounded bg-[#1c1f29]"></div>
+                <div class="h-4 w-28 rounded bg-[#1c1f29]"></div>
+                <div class="h-4 w-full max-w-xl rounded bg-[#1c1f29]"></div>
+                <div class="h-4 w-3/4 max-w-xl rounded bg-[#1c1f29]"></div>
+                <div class="h-10 w-44 rounded-md bg-[#1c1f29]"></div>
+            </div>
+        </div>
+    }
+
+    @else if (peliculaSeleccionada) {
+
+        <section class="relative h-[70vh] overflow-hidden border-b border-[#1f222d]">
+            <img
+                [src]="peliculaSeleccionada.image_url"
+                [alt]="peliculaSeleccionada.title"
+                class="w-full h-full object-cover object-center"
+            />
+            <div class="absolute inset-0 bg-linear-to-t from-[#14161d] via-[#14161d]/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-linear-to-r from-[#14161d]/70 to-transparent"></div>
+
+            <a
+                routerLink="/"
+                class="absolute top-8 left-8 flex items-center gap-2 text-[#d4d5dc] hover:text-white transition-colors duration-150 group"
+            >
+                <svg icon lucideArrowLeft class="w-5 h-5 transition-transform duration-150 group-hover:-translate-x-0.5"></svg>
+                <span class="text-sm font-medium">Volver al catálogo</span>
+            </a>
+
+            <div class="absolute bottom-0 left-0 right-0 px-16 pb-10">
+                <div class="max-w-360 mx-auto flex flex-col gap-4">
+                    <div class="flex items-center gap-2.5">
+                        <span class="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-medium bg-[rgba(255,42,77,0.14)] text-[#ff5872] border border-[rgba(255,42,77,0.35)]">
+                            {{ peliculaSeleccionada.genre }}
+                        </span>
+                        <span class="text-[#d4d5dc] text-[12px] font-medium">{{ peliculaSeleccionada.year }}</span>
+                    </div>
+                    <h1 class="m-0 text-[72px] leading-[0.95] text-[#d4d5dc] max-w-180 font-[Bebas_Neue] [text-shadow:0_4px_20px_rgba(0,0,0,0.6)]">
+                        {{ peliculaSeleccionada.title }}
+                    </h1>
+                    <app-estrella [rating]="peliculaSeleccionada.stars"></app-estrella>
+                </div>
+            </div>
+        </section>
+
+        <section class="px-16 py-10">
+            <div class="max-w-360 mx-auto flex flex-col gap-8">
+
+                <p class="text-[#d4d5dc] text-[14px] leading-[1.7] max-w-2xl">
+                    {{ peliculaSeleccionada.description }}
+                </p>
+
+                <div class="flex items-start gap-10 border-t border-[#1f222d] pt-6">
+                    <div class="flex flex-col gap-1.5">
+                        <span class="text-[10px] uppercase tracking-widest text-[#5a5e72] font-medium">Año</span>
+                        <span class="text-[#d4d5dc] text-sm font-semibold">{{ peliculaSeleccionada.year }}</span>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <span class="text-[10px] uppercase tracking-widest text-[#5a5e72] font-medium">Género</span>
+                        <span class="text-[#d4d5dc] text-sm font-semibold">{{ peliculaSeleccionada.genre }}</span>
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <span class="text-[10px] uppercase tracking-widest text-[#5a5e72] font-medium">Valoración</span>
+                        <app-estrella [rating]="peliculaSeleccionada.stars"></app-estrella>
+                    </div>
+                </div>
+
+                <button
+                    (click)="toggleFavorito()"
+                    [class]="'inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md font-semibold text-[13px] transition-all duration-150 cursor-pointer border self-start ' + (peliculaSeleccionada.favorita ? 'bg-[#ff2a4d] text-white border-[#ff2a4d]' : 'bg-[#14161d] text-[#d4d5dc] border-[#2a2e3c]')"
+                >
+                    <svg icon lucideHeart class="w-4 h-4" [class.fill-current]="peliculaSeleccionada.favorita"></svg>
+                    {{ peliculaSeleccionada.favorita ? 'En favoritos' : 'Agregar a favoritos' }}
+                </button>
+
+            </div>
+        </section>
+    }
+
+    @else {
+        <div class="flex flex-col items-center justify-center min-h-screen gap-4 text-[#d4d5dc]">
+            <p class="text-lg font-semibold">Película no encontrada</p>
+            <a routerLink="/" class="text-[#ff5872] text-sm hover:underline">← Volver al catálogo</a>
+        </div>
+    }
+
+</div>

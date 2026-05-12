@@ -5,6 +5,7 @@ import { AsyncPipe } from '@angular/common';
 import { Observable, scan, shareReplay, take } from 'rxjs';
 import { LucideHeart, LucidePlay, LucideList, LucideChevronDown } from '@lucide/angular';
 import { Estrella } from '../componentes/estrella/estrella';
+import { RouterLink, RouterModule } from "@angular/router";
 
 interface EstadoPeliculas {
     lista: Pelicula[];
@@ -15,7 +16,7 @@ interface EstadoPeliculas {
   selector: 'app-inicio',
   templateUrl: './inicio.html',
   styleUrl: './inicio.css',
-  imports: [AsyncPipe, LucideHeart, LucidePlay, LucideList, LucideChevronDown, Estrella],
+  imports: [AsyncPipe, RouterModule, LucideHeart, LucidePlay, LucideList, LucideChevronDown, Estrella, RouterLink],
 })
 export class Inicio implements OnInit {
     peliculas$!: Observable<EstadoPeliculas>;
